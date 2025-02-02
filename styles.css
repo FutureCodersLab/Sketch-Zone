@@ -17,3 +17,100 @@
     --see-through-white: rgba(255, 255, 255, 0.8);
     --controls-border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+#container {
+    position: relative;
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    touch-action: none;
+}
+
+.controls {
+    background: var(--see-through-white);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    border: var(--controls-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    user-select: none;
+    z-index: 2;
+    touch-action: manipulation;
+}
+
+.group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.group .range {
+    width: 100px;
+}
+
+.color-pickers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.color-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+}
+
+.color-container div {
+    width: 25px;
+    height: 25px;
+    background: var(--rainbow);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.color-container input {
+    appearance: none;
+    border-width: 0px;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+}
+
+.color-container input::-webkit-color-swatch {
+    align-self: center;
+    border: none;
+    border-radius: 50%;
+    block-size: 25px;
+}
+
+.color-container.active {
+    border: 1px solid black;
+}
