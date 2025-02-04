@@ -90,15 +90,15 @@ colorPickers.addEventListener("click", (e) => {
 });
 
 modeButtons.addEventListener("click", (e) => {
-    const button = e.target;
+    const selectedButton = e.target;
 
-    if (!button.id) return;
+    if (!selectedButton.id) return;
 
     Array.from(modeButtons.children).forEach((button) =>
         button.classList.remove("active")
     );
-    button.classList.add("active");
-    drawingMode = button.id;
+    selectedButton.classList.add("active");
+    drawingMode = selectedButton.id;
 
     if (drawingMode === "shape") {
         innerRadiusInput.parentElement.classList.add("active");
