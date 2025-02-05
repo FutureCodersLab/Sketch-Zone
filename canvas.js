@@ -35,10 +35,10 @@ export const drawSmooth = (
     colorPicked
 ) => {
     const distance = Math.hypot(currentX - lastX, currentY - lastY);
-    const steps = Math.ceil(distance / outerRadius) * 5;
+    const numberOfCircles = Math.ceil(distance / outerRadius) * 5;
 
-    for (let i = 0; i < steps; i++) {
-        const progress = i / steps;
+    for (let i = 0; i < numberOfCircles; i++) {
+        const progress = i / numberOfCircles;
         const x = lastX + (currentX - lastX) * progress;
         const y = lastY + (currentY - lastY) * progress;
         drawCircle(x, y, outerRadius, hue, colorPicked);
