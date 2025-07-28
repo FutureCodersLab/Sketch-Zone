@@ -1,5 +1,4 @@
 import { drawSmooth } from "./canvas.js";
-const canvas = document.getElementById("canvas");
 
 let isDrawing = false;
 let hue = 0;
@@ -7,6 +6,7 @@ let lastX;
 let lastY;
 let colorPicked = null;
 
+const canvas = document.getElementById("canvas");
 const outerRadiusInput = document.querySelector("#outer-radius input");
 const colorPickers = document.querySelector(".color-pickers");
 
@@ -20,32 +20,36 @@ window.addEventListener("mousedown", (e) => {
     }
 });
 
-window.addEventListener("mouseup", () => (isDrawing = false));
+window.addEventListener("mouseup", () => {
+    isDrawing = false;
+});
 
 window.addEventListener("mousemove", (e) => {
-    const outerRadius = outerRadiusInput.value;
-    if (isDrawing)
+    if (isDrawing) {
+        const outerRadius = outerRadiusInput.value;
         drawSmooth(lastX, lastY, e.x, e.y, outerRadius, hue, colorPicked);
-    lastX = e.x;
-    lastY = e.y;
-    hue += 0.5;
+        lastX = e.x;
+        lastY = e.y;
+        hue += 0.5;
+    }
 });
 
 colorPickers.addEventListener("click", (e) => {
     const colorPicker = e.target;
     if (!colorPicker.id) return;
     if (colorPicker.id === "solid-color") {
-        colorPicker.addEventListener(
-            "change",
-            () => (colorPicked = e.target.value)
-        );
+        colorPicker.addEventListener("change", () => {
+            colorPicked = e.target.value;
+        });
     }
     if (colorPicker.id === "hue-cycling") {
         colorPicked = "";
         hue = 0;
     }
 
-    document.querySelectorAll(".color-container").forEach((container) => {
+    const colorContainers = document.querySelectorAll(".color-container");
+
+    colorContainers.forEach((container) => {
         container.classList.remove("active");
     });
 
