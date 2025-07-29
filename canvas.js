@@ -1,5 +1,4 @@
-const canvas = document.getElementById("canvas");
-/**@type {CanvasRenderingContext2D} */
+const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
 canvas.height = window.innerHeight;
@@ -12,7 +11,7 @@ let angle = 0;
 
 const drawCircle = (x, y, outerRadius, hue, colorPicked) => {
     context.shadowColor = "transparent";
-    context.fillStyle = "#fff";
+    context.fillStyle = "white";
     if (hue) {
         context.fillStyle = `hsl(${hue}, 100%, 50%)`;
     }
@@ -20,7 +19,7 @@ const drawCircle = (x, y, outerRadius, hue, colorPicked) => {
         context.fillStyle = colorPicked;
     }
     context.beginPath();
-    context.arc(x, y, outerRadius, 0, Math.PI * 2);
+    context.arc(x, y, outerRadius, 0, 360); // x, y, radius, start angle, end angle
     context.closePath();
     context.fill();
 };
@@ -55,15 +54,27 @@ export const drawShape = (
     colorPicked,
     isRotating
 ) => {
-    context.fillStyle = colorPicked ? colorPicked : `hsl(${hue}, 100%, 50%)`;
-    context.shadowOffsetX = 5;
     context.shadowOffsetY = 5;
+    context.shadowOffsetX = 5;
     context.shadowBlur = 10;
     context.shadowColor = "black";
+
+    if (hue) {
+        context.fillStyle = `hsl(${hue}, 100%, 50%)`;
+    }
+
+    if (colorPicked) {
+        context.fillStyle = colorPicked;
+    }
+
     context.beginPath();
     context.save();
     context.translate(x, y);
-    if (isRotating) context.rotate(angle);
+
+    if (isRotating) {
+        context.rotate(angle);
+    }
+
     context.moveTo(0, -outerRadius);
     for (let i = 0; i < numberOfSides; i++) {
         context.rotate(Math.PI / numberOfSides);
@@ -71,7 +82,11 @@ export const drawShape = (
         context.rotate(Math.PI / numberOfSides);
         context.lineTo(0, -outerRadius);
     }
-    if (isRotating) angle += 0.1;
+
+    if (isRotating) {
+        angle += 0.1;
+    }
+
     context.restore();
     context.closePath();
     context.stroke();
@@ -79,7 +94,6 @@ export const drawShape = (
 };
 
 export const clearCanvas = () => {
-    context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = "white";
     context.fillRect(0, 0, canvas.width, canvas.height);
 };
@@ -87,7 +101,4 @@ export const clearCanvas = () => {
 export const resizeCanvas = () => {
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
-    context.shadowOffsetX = 5;
-    context.shadowOffsetY = 5;
-    context.shadowBlur = 10;
 };

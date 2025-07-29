@@ -19,8 +19,8 @@
 }
 
 body {
-    margin: 0;
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
     font-family: var(--font-family);
 }
@@ -29,13 +29,12 @@ body {
     position: relative;
 }
 
-#canvas {
+canvas {
     position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    touch-action: none;
 }
 
 .controls {
@@ -72,7 +71,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
     gap: 10px;
 }
 
@@ -148,16 +146,6 @@ body {
 .mode-buttons button.active {
     background-color: var(--blue);
     color: white;
-}
-
-#inner-radius,
-#number-of-sides {
-    display: none;
-}
-
-#inner-radius.active,
-#number-of-sides.active {
-    display: flex;
 }
 
 #clear {
