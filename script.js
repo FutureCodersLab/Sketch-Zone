@@ -1,28 +1,15 @@
 import { drawSmooth } from "./canvas.js";
 
+const canvas = document.querySelector("canvas");
+const outerRadiusInput = document.querySelector("#outer-radius input");
+const solidColorPicker = document.querySelector("#solid-color");
+const hueCyclingColorPicker = document.querySelector("#hue-cycling");
+
 let isDrawing = false;
 let hue = 0;
+let colorPicked = null;
 let lastX;
 let lastY;
-let colorPicked = null;
-
-const canvas = document.getElementById("canvas");
-const outerRadiusInput = document.querySelector("#outer-radius input");
-const colorPickers = document.querySelector(".color-pickers");
-
-window.addEventListener("mousedown", (e) => {
-    if (e.target === canvas) {
-        isDrawing = true;
-        lastX = e.x;
-        lastY = e.y;
-    } else {
-        isDrawing = false;
-    }
-});
-
-window.addEventListener("mouseup", () => {
-    isDrawing = false;
-});
 
 window.addEventListener("mousemove", (e) => {
     if (isDrawing) {
@@ -34,24 +21,27 @@ window.addEventListener("mousemove", (e) => {
     }
 });
 
-colorPickers.addEventListener("click", (e) => {
-    const colorPicker = e.target;
-    if (!colorPicker.id) return;
-    if (colorPicker.id === "solid-color") {
-        colorPicker.addEventListener("change", () => {
-            colorPicked = e.target.value;
-        });
-    }
-    if (colorPicker.id === "hue-cycling") {
-        colorPicked = "";
-        hue = 0;
-    }
+canvas.addEventListener("mousedown", (e) => {
+    isDrawing = true;
+    lastX = e.x;
+    lastY = e.y;
+});
 
-    const colorContainers = document.querySelectorAll(".color-container");
+canvas.addEventListener("mouseup", () => {
+    isDrawing = false;
+});
 
-    colorContainers.forEach((container) => {
-        container.classList.remove("active");
-    });
+solidColorPicker.addEventListener("input", (e) => {
+    colorPicked = e.target.value;
 
-    colorPicker.parentElement.classList.add("active");
+    solidColorPicker.parentElement.classList.add("active");
+    hueCyclingColorPicker.parentElement.classList.remove("active");
+});
+
+hueCyclingColorPicker.addEventListener("click", () => {
+    colorPicked = null;
+    hue = 0;
+
+    hueCyclingColorPicker.parentElement.classList.add("active");
+    solidColorPicker.parentElement.classList.remove("active");
 });

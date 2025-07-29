@@ -1,5 +1,4 @@
-const canvas = document.getElementById("canvas");
-/**@type {CanvasRenderingContext2D} */
+const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
 canvas.height = window.innerHeight;
@@ -7,6 +6,7 @@ canvas.width = window.innerWidth;
 
 context.fillStyle = "white";
 context.fillRect(0, 0, canvas.width, canvas.height);
+
 const drawCircle = (x, y, outerRadius, hue, colorPicked) => {
     if (hue) {
         context.fillStyle = `hsl(${hue}, 100%, 50%)`;
@@ -16,7 +16,7 @@ const drawCircle = (x, y, outerRadius, hue, colorPicked) => {
     }
 
     context.beginPath();
-    context.arc(x, y, outerRadius, 0, Math.PI * 2);
+    context.arc(x, y, outerRadius, 0, 360);
     context.closePath();
     context.fill();
 };
@@ -32,6 +32,7 @@ export const drawSmooth = (
 ) => {
     const distance = Math.hypot(currentX - lastX, currentY - lastY);
     const numberOfCircles = Math.ceil(distance / outerRadius) * 5;
+
     for (let i = 0; i < numberOfCircles; i++) {
         const progress = i / numberOfCircles;
         const x = lastX + (currentX - lastX) * progress;
