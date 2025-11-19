@@ -56,23 +56,15 @@ canvas {
     touch-action: manipulation;
 }
 
-.group {
+.slider {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
 }
 
-.group .range {
+.slider input {
     width: 100px;
-}
-
-.color-pickers {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    gap: 10px;
 }
 
 .color-container {
