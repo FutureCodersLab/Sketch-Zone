@@ -1,12 +1,11 @@
 import { clearCanvas, drawShape, drawSmooth, resizeCanvas } from "./canvas.js";
 
 const canvas = document.querySelector("canvas");
-const outerRadiusInput = document.querySelector("#outer-radius input");
+const radiusInput = document.querySelector("#radius input");
 const solidColorPicker = document.querySelector("#solid-color");
 const hueCyclingPicker = document.querySelector("#hue-cycling");
 
 const modeButtons = document.querySelector(".mode-buttons");
-const innerRadiusInput = document.querySelector("#inner-radius input");
 const numberOfSidesInput = document.querySelector("#number-of-sides input");
 const clearButton = document.querySelector("#clear");
 const downloadButton = document.querySelector("#download");
@@ -64,27 +63,17 @@ modeButtons.addEventListener("click", (e) => {
 });
 
 const draw = (x, y) => {
-    const outerRadius = outerRadiusInput.value;
-    const innerRadius = innerRadiusInput.value;
+    const radius = radiusInput.value;
     const numberOfSides = numberOfSidesInput.value;
 
     if (drawingMode === "smooth") {
-        drawSmooth(lastX, lastY, x, y, outerRadius, hue, colorPicked);
+        drawSmooth(lastX, lastY, x, y, radius, hue, colorPicked);
     }
     if (drawingMode === "eraser") {
-        drawSmooth(lastX, lastY, x, y, outerRadius);
+        drawSmooth(lastX, lastY, x, y, radius);
     }
     if (drawingMode === "shape") {
-        drawShape(
-            x,
-            y,
-            outerRadius,
-            innerRadius,
-            numberOfSides,
-            hue,
-            colorPicked,
-            isRotating
-        );
+        drawShape(x, y, radius, numberOfSides, hue, colorPicked, isRotating);
     }
 
     lastX = x;
