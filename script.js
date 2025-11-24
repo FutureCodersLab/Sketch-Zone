@@ -3,13 +3,19 @@ import { drawSmooth } from "./canvas.js";
 const canvas = document.querySelector("canvas");
 const outerRadiusInput = document.querySelector("#outer-radius input");
 const solidColorPicker = document.querySelector("#solid-color");
-const hueCyclingColorPicker = document.querySelector("#hue-cycling");
+const hueCyclingPicker = document.querySelector("#hue-cycling");
 
 let isDrawing = false;
 let hue = 0;
 let colorPicked = null;
 let lastX;
 let lastY;
+
+canvas.addEventListener("mousedown", (e) => {
+    isDrawing = true;
+    lastX = e.x;
+    lastY = e.y;
+});
 
 window.addEventListener("mousemove", (e) => {
     if (isDrawing) {
@@ -21,12 +27,6 @@ window.addEventListener("mousemove", (e) => {
     }
 });
 
-canvas.addEventListener("mousedown", (e) => {
-    isDrawing = true;
-    lastX = e.x;
-    lastY = e.y;
-});
-
 canvas.addEventListener("mouseup", () => {
     isDrawing = false;
 });
@@ -35,13 +35,13 @@ solidColorPicker.addEventListener("input", (e) => {
     colorPicked = e.target.value;
 
     solidColorPicker.parentElement.classList.add("active");
-    hueCyclingColorPicker.parentElement.classList.remove("active");
+    hueCyclingPicker.parentElement.classList.remove("active");
 });
 
-hueCyclingColorPicker.addEventListener("click", () => {
+hueCyclingPicker.addEventListener("click", () => {
     colorPicked = null;
     hue = 0;
 
-    hueCyclingColorPicker.parentElement.classList.add("active");
+    hueCyclingPicker.parentElement.classList.add("active");
     solidColorPicker.parentElement.classList.remove("active");
 });
