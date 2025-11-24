@@ -7,7 +7,7 @@ canvas.width = window.innerWidth;
 context.fillStyle = "white";
 context.fillRect(0, 0, canvas.width, canvas.height);
 
-const drawCircle = (x, y, outerRadius, hue, colorPicked) => {
+const drawCircle = (x, y, radius, hue, colorPicked) => {
     if (hue) {
         context.fillStyle = `hsl(${hue}, 100%, 50%)`;
     }
@@ -16,7 +16,7 @@ const drawCircle = (x, y, outerRadius, hue, colorPicked) => {
     }
 
     context.beginPath();
-    context.arc(x, y, outerRadius, 0, 360);
+    context.arc(x, y, radius, 0, 360);
     context.closePath();
     context.fill();
 };
@@ -26,17 +26,17 @@ export const drawSmooth = (
     lastY,
     currentX,
     currentY,
-    outerRadius,
+    radius,
     hue,
     colorPicked
 ) => {
     const distance = Math.hypot(currentX - lastX, currentY - lastY);
-    const numberOfCircles = Math.ceil(distance / outerRadius) * 5;
+    const numberOfCircles = Math.ceil(distance / radius) * 5;
 
     for (let i = 0; i < numberOfCircles; i++) {
         const progress = i / numberOfCircles;
         const x = lastX + (currentX - lastX) * progress;
         const y = lastY + (currentY - lastY) * progress;
-        drawCircle(x, y, outerRadius, hue, colorPicked);
+        drawCircle(x, y, radius, hue, colorPicked);
     }
 };

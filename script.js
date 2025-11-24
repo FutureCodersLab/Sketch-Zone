@@ -1,7 +1,7 @@
 import { drawSmooth } from "./canvas.js";
 
 const canvas = document.querySelector("canvas");
-const outerRadiusInput = document.querySelector("#outer-radius input");
+const radiusInput = document.querySelector("#radius input");
 const solidColorPicker = document.querySelector("#solid-color");
 const hueCyclingPicker = document.querySelector("#hue-cycling");
 
@@ -19,8 +19,8 @@ canvas.addEventListener("mousedown", (e) => {
 
 window.addEventListener("mousemove", (e) => {
     if (isDrawing) {
-        const outerRadius = outerRadiusInput.value;
-        drawSmooth(lastX, lastY, e.x, e.y, outerRadius, hue, colorPicked);
+        const radius = radiusInput.value;
+        drawSmooth(lastX, lastY, e.x, e.y, radius, hue, colorPicked);
         lastX = e.x;
         lastY = e.y;
         hue += 0.5;
