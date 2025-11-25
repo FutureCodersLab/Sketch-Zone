@@ -9,7 +9,7 @@ context.fillRect(0, 0, canvas.width, canvas.height);
 
 let angle = 0;
 
-const drawCircle = (x, y, outerRadius, hue, colorPicked) => {
+const drawCircle = (x, y, radius, hue, colorPicked) => {
     context.shadowColor = "transparent";
     context.fillStyle = "white";
     if (hue) {
@@ -19,7 +19,7 @@ const drawCircle = (x, y, outerRadius, hue, colorPicked) => {
         context.fillStyle = colorPicked;
     }
     context.beginPath();
-    context.arc(x, y, outerRadius, 0, 360); // x, y, radius, start angle, end angle
+    context.arc(x, y, radius, 0, 360); // x, y, radius, start angle, end angle
     context.closePath();
     context.fill();
 };
@@ -29,26 +29,25 @@ export const drawSmooth = (
     lastY,
     currentX,
     currentY,
-    outerRadius,
+    radius,
     hue,
     colorPicked
 ) => {
     const distance = Math.hypot(currentX - lastX, currentY - lastY);
-    const numberOfCircles = Math.ceil(distance / outerRadius) * 5;
+    const numberOfCircles = Math.ceil(distance / radius) * 5;
 
     for (let i = 0; i < numberOfCircles; i++) {
         const progress = i / numberOfCircles;
         const x = lastX + (currentX - lastX) * progress;
         const y = lastY + (currentY - lastY) * progress;
-        drawCircle(x, y, outerRadius, hue, colorPicked);
+        drawCircle(x, y, radius, hue, colorPicked);
     }
 };
 
 export const drawShape = (
     x,
     y,
-    outerRadius,
-    innerRadius,
+    radius,
     numberOfSides,
     hue,
     colorPicked,
@@ -75,12 +74,10 @@ export const drawShape = (
         context.rotate(angle);
     }
 
-    context.moveTo(0, -outerRadius);
+    context.moveTo(0, -radius);
     for (let i = 0; i < numberOfSides; i++) {
-        context.rotate(Math.PI / numberOfSides);
-        context.lineTo(0, -outerRadius * innerRadius);
-        context.rotate(Math.PI / numberOfSides);
-        context.lineTo(0, -outerRadius);
+        context.rotate((Math.PI * 2) / numberOfSides);
+        context.lineTo(0, -radius);
     }
 
     if (isRotating) {
