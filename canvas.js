@@ -17,7 +17,6 @@ const drawCircle = (x, y, radius, hue, colorPicked) => {
 
     context.beginPath();
     context.arc(x, y, radius, 0, 360);
-    context.closePath();
     context.fill();
 };
 
